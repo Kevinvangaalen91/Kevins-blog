@@ -98,12 +98,14 @@ def admin_only(f):
     return decorated_function
 
 
+# Home route
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
     return render_template("index.html", all_posts=posts)
 
 
+# Register route
 @app.route('/register', methods=["GET", "POST"])
 def register():
     form = RegisterForm()
@@ -132,6 +134,7 @@ def register():
     return render_template("register.html", form=form)
 
 
+# Login route
 @app.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
@@ -150,6 +153,7 @@ def login():
     return render_template("login.html", form=form)
 
 
+# Logout route
 @app.route('/logout')
 def logout():
     logout_user()
@@ -157,6 +161,7 @@ def logout():
     return redirect(url_for('get_all_posts'))
 
 
+# Single post route
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
